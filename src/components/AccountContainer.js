@@ -1,45 +1,51 @@
 import React, { useState, useEffect } from "react";
-import TransactionsList from './TransactionList';
+import TransactionsList from "./TransactionsList";
 import Search from "./Search";
-import AddTransactionForm from './AddTransactionForm';
+import AddTransactionForm from "./AddTransactionForm";
 
-function AccountContainer({handleDeleteTransaction}) {
-	 //fetch data
-  //GET request
-  const [transactions, listTransactions] = useState([]);
+function AccountContainer() {
+  const [transactions, setTransactions] = useState([]);
+  const [copy, setCopy] = React.useState([]);
+
   useEffect(() => {
-    fetch('http://localhost:3000/transactions')
+    fetch("http://localhost:3000/transactions")
       .then((response) => response.json())
-      .then((transacs) => listTransactions(transacs))
-      .catch((err) => console.log(err));
+      .then((data) => {
+
+        setCopy(data)
+        setTransactions(data)});
   }, []);
+  console.log(transactions);
 
-  function handleAddForm(newForm) {
-    listTransactions([...transactions, newForm]);
+  function addTransacfinfor(newTransaction) {
+    const update = [...transactions, newTransaction];
+    setTransactions(update);
   }
 
-  
-
-  function handleSearch(e) {
-    listTransactions((transactions) => {
-      return transactions.filter((transaction) => {
-        return transaction.description.toLowerCase().includes(e.target.value.toLowerCase());
-      });
-    });
+  //Delete transaction
+  function deleteTransact(id) {
+    const update = transactions.filter((transaction) => transaction.id !== id);
+    setTransactions(update);
   }
-	return (
-		<div>
-			<Search handleSearch={handleSearch} />
-			<AddTransactionForm
-				handleAddTransaction={handleAddForm}
-				transactions={transactions}
-			/>
-			<TransactionsList
-				transactions={transactions}
-				
-			/>
-		</div>
-	);
+
+  function handleSearch(event){
+    let search = event.target.value.toLowerCase()
+    //  const somevalue = undefined
+    // const val = somevalue || ""
+    setTransactions(copy.filter(val=>val.description.toLowerCase().includes(search)))
+    console.log(handleSearch)
+  }
+
+  return (
+    <div>
+      <Search handleSearch={handleSearch} />
+      <AddTransactionForm anewTransaction={addTransacfinfor} />
+      <TransactionsList
+        transactions={transactions}
+        deleteTransactions={deleteTransact}
+      />
+    </div>
+  );
 }
 
 export default AccountContainer;
