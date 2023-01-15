@@ -1,6 +1,6 @@
 import React from "react";
-import AccountContainer from './components/AccountContainer';
-import './App.css';
+import AccountContainer from './AccountContainer';
+
 function App() {
   return (
     <div className="ui raised segment">
