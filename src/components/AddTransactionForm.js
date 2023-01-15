@@ -22,7 +22,7 @@ function handleSubmit(/*e*/) {
     amount: amount,
   };
   
-  fetch("http://localhost:8001/transactions", {
+  fetch("http://localhost:3000/transactions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

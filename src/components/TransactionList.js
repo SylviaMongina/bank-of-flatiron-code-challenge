@@ -6,7 +6,7 @@ function TransactionsList({ transactions, handleDeleteTransaction, handleAddForm
     const deleteTransaction = async (transId) => {
           console.log(transId);
           try {
-              const res = await fetch("http://localhost:8001/transactions/" + transId, {
+              const res = await fetch("http://localhost:3000/transactions/" + transId, {
                   method: "DELETE",
               });
               handleDeleteTransaction(transId);

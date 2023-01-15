@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TransactionsList from "./TransactionsList";
+import TransactionsList from "./TransactionList";
 import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
@@ -8,7 +8,7 @@ function AccountContainer({handleDeleteTransaction}) {
   //GET request
   const [transactions, listTransactions] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8001/transactions')
+    fetch('http://localhost:3000/transactions')
       .then((response) => response.json())
       .then((transacs) => listTransactions(transacs))
       .catch((err) => console.log(err));
