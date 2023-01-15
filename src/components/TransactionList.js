@@ -1,53 +1,64 @@
-import React from 'react';
-import Transaction from './Transaction';
+import React from "react";
+import Transaction from "./Transaction";
 
-function TransactionsList({ transactions, handleDeleteTransaction, handleAddForm}) {
+function TransactionsList({
+  transactions,
+  deleteTransactions,
+  setTransactions,
+  search,
+}) {
+  let listtransaction = "Load transaction...";
 
-    const deleteTransaction = async (transId) => {
-          console.log(transId);
-          try {
-              const res = await fetch("http://localhost:3000/transactions/" + transId, {
-                  method: "DELETE",
-              });
-              handleDeleteTransaction(transId);
-          } catch (error) {
-              console.log(error);
-          }
-      };
+  if (transactions) {
+    const tfilter = transactions.filter((transaction) => {
+      return transaction.description
+    });
+
+    listtransaction = tfilter.map((transaction) => {
       return (
-        <table onAddItem= {handleAddForm} className='ui celled striped padded table'>
-          <tbody>
-            <tr>
-            {/* <th>
-                <h3 className="ui center aligned header">#Ref</h3>
-              </th> */}
-              <th>
-                <h3 className='ui center aligned header'>Date</h3>
-              </th>
-              <th>
-                <h3 className='ui center aligned header'>Description</h3>
-              </th>
-              <th>
-                <h3 className='ui center aligned header'>Category</h3>
-              </th>
-              <th>
-                <h3 className='ui center aligned header'>Amount</h3>
-              </th>
-              <th><h3 className='ui center aligned header'>Delete</h3></th>
-            </tr>
-            {/* render a list of <Transaction> components here */}
-            {transactions.map((transaction, idx) => {
-              return (
-                <Transaction
-                key={transaction.id}
-                            transaction={transaction}
-                            deleteTransaction={deleteTransaction}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+        <Transaction
+          transaction={transactions}
+          setTransactions={setTransactions}
+          key={transaction.id}
+          date={transaction.date}
+          description={transaction.description}
+          category={transaction.category}
+          amount={transaction.amount}
+          id={transaction.id}
+          deleteTransactions={deleteTransactions}
+        />
       );
-    }
-    
-    export default TransactionsList;
+    });
+  }
+
+  return (
+    <table className="ui celled striped padded table">
+      <tbody>
+        <tr>
+          <th>
+            <h3 className="ui center aligned header">Date</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">
+              Description<i className="fa-solid fa-sort"></i>
+            </h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">
+              Category<i className="fa-solid fa-sort"></i>
+            </h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Amount</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Button Action</h3>
+          </th>
+        </tr>
+        {listtransaction}
+      </tbody>
+    </table>
+  );
+}
+
+export default TransactionsList;

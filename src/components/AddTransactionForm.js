@@ -5,14 +5,7 @@ function AddTransactionForm({ onAddItem}) {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState();
-  // const [addFormData, newFormData] = useState({
-  //   date: "",
-  //   description: "",
-  //   category: "",
-  //   amount: 0,
-  // })
-// Add function to handle submissions
-
+ 
 function handleSubmit(/*e*/) {
   // e.preventDefault();
   const addFormData = {
