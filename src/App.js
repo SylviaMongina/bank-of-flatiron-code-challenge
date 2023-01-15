@@ -1,5 +1,5 @@
 import React from "react";
-import AccountContainer from "./AccountContainer";
+import AccountContainer from './components/AccountContainer';
 
 function App() {
   return (
