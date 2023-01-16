@@ -3,6 +3,8 @@
 # Bank of Flatiron
 
 Welcome to the Bank of Flatiron, where you can trust us with all your financial data!
+
+![image](https://user-images.githubusercontent.com/117803357/212671903-f1cc97f4-df80-46e4-b837-9a0e2cc6cba6.png)
 ## Endpoints
 
 The base URL for your backend is: http://localhost:3000
