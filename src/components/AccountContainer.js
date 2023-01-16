@@ -4,40 +4,47 @@ import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
 function AccountContainer() {
-  const [transactions, setTransactions] = useState([]);
-  const [copy, setCopy] = React.useState([]);
+    const [transactions, setTransactions] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/transactions")
-      .then((response) => response.json())
-      .then((data) => {
+    // req.open("GET", "https://api.jsonbin.io/v3/b/63c5194a01a72b59f24c15f4/<BIN_VERSION | latest>", true);
+    // req.setRequestHeader("X-Master-Key", "<YOUR_API_KEY>");
 
-        setCopy(data)
-        setTransactions(data)});
-  }, []);
-  console.log(transactions);
+    useEffect(() => {
+        fetch("https://api.jsonbin.io/v3/b/63c5194a01a72b59f24c15f4/latest", {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+                "Accept":"application/json",
+                "X-Master-Key":"$2b$10$81GFpWlAFSY.L9UGrP7.heQMLIppxY1PH2w37N9fljccXwsBGZtlq"
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            //console.log (data.record.transactions)
+            setTransactions(data.record.transactions)
+        })
+        }, []);
+        //console.log(transactions);
 
-  function addTransacfinfor(newTransaction) {
-    const update = [...transactions, newTransaction];
-    setTransactions(update);
-  }
+        function addTransacfinfor(newTransaction) {
+            const update = [...transactions, newTransaction];
+            setTransactions(update);
+            }
+        //remove transaction
+        function deleteTransact(id) {
+            const update = transactions.filter((transaction) => transaction.id !== id);
+            setTransactions(update);
+        }
+        function handleSearch(event){
+            let search = event.target.value.toLowerCase()
+            //  const somevalue = undefined
+            // const val = somevalue || ""
+            setTransactions(transactions.filter(val=>val.description.toLowerCase().includes(search)))
+            console.log(handleSearch)
+        }
 
-  //Delete transaction
-  function deleteTransact(id) {
-    const update = transactions.filter((transaction) => transaction.id !== id);
-    setTransactions(update);
-  }
-
-  function handleSearch(event){
-    let search = event.target.value.toLowerCase()
-    //  const somevalue = undefined
-    // const val = somevalue || ""
-    setTransactions(copy.filter(val=>val.description.toLowerCase().includes(search)))
-    console.log(handleSearch)
-  }
-
-  return (
-    <div>
+        return (
+            <div>
       <Search handleSearch={handleSearch} />
       <AddTransactionForm anewTransaction={addTransacfinfor} />
       <TransactionsList
@@ -45,7 +52,7 @@ function AccountContainer() {
         deleteTransactions={deleteTransact}
       />
     </div>
-  );
+    );
 }
 
 export default AccountContainer;

@@ -18,7 +18,7 @@ function AddTransactionForm(anewTransaction) {
 
   function handleSubmit(event){
     // event.preventDefault();
-    fetch(`http://localhost:3000/transactions`, {
+    fetch(`http://localhost:3003/transactions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,6 +40,7 @@ function AddTransactionForm(anewTransaction) {
 
       })
     })
+
     .then((response)=>response.json())
     .then((info)=>anewTransaction =(info))
     console.log(dataInfo);
