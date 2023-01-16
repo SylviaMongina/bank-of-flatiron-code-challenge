@@ -1,8 +1,9 @@
 # Phase 2 Code Challenge: Bank of Flatiron 
 # Author : Sylvia Bosire 13-01-2023
+# Bank of Flatiron
 
-
-
+Welcome to the Bank of Flatiron, where you can trust us with all your financial data!
+git 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
