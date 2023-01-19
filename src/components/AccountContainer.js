@@ -10,28 +10,35 @@ function AccountContainer() {
     // req.setRequestHeader("X-Master-Key", "<YOUR_API_KEY>");
 
     useEffect(() => {
-        fetch("https://api.jsonbin.io/v3/b/63c5194a01a72b59f24c15f4/latest", {
+        fetch("http://localhost:3000/transactions", {
             method:"GET",
             headers:{
-                "Content-Type":"application/json",
-                "Accept":"application/json",
-                "X-Master-Key":"$2b$10$81GFpWlAFSY.L9UGrP7.heQMLIppxY1PH2w37N9fljccXwsBGZtlq"
+                // "Content-Type":"application/json",
+                // "Accept":"application/json",
+                // "X-Master-Key":"$2b$10$81GFpWlAFSY.L9UGrP7.heQMLIppxY1PH2w37N9fljccXwsBGZtlq"
             }
         })
         .then((response) => response.json())
         .then((data) => {
             //console.log (data.record.transactions)
-            setTransactions(data.record.transactions)
+            setTransactions(data)
         })
         }, []);
         //console.log(transactions);
 
-        function addTransacfinfor(newTransaction) {
+        function addTransactionInfo(newTransaction) {
             const update = [...transactions, newTransaction];
             setTransactions(update);
             }
         //remove transaction
         function deleteTransact(id) {
+        fetch(`http://localhost:3000/transactions/${id}`,{
+            method:"DELETE",
+            headers:{
+                //"Content-Type":"application/json",
+                // "Accept":"application/json",
+            }
+        })
             const update = transactions.filter((transaction) => transaction.id !== id);
             setTransactions(update);
         }
@@ -46,7 +53,7 @@ function AccountContainer() {
         return (
             <div>
       <Search handleSearch={handleSearch} />
-      <AddTransactionForm anewTransaction={addTransacfinfor} />
+      <AddTransactionForm anewTransaction={addTransactionInfo} />
       <TransactionsList
         transactions={transactions}
         deleteTransactions={deleteTransact}

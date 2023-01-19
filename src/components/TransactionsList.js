@@ -1,16 +1,16 @@
 import React from 'react';
 import Transaction from './Transaction';
 
-function TransactionsList({ transactions, handleDeleteTransaction, handleAddForm}) {
+function TransactionsList({ transactions, deleteTransactions}) {
 
   const deleteTransaction = async (transId) => {
 		console.log(transId);
 		try {
       // eslint-disable-next-line 
-			/*const res = await fetch("http://localhost:3003/transactions/" + transId, {
+			/*const res = await fetch("http://localhost:3000/transactions/" + transId, {
 				method: "DELETE",
 			});*/
-			handleDeleteTransaction(transId);
+			deleteTransactions(transId);
 		} catch (error) {
 			console.log(error);
 		}
@@ -41,11 +41,7 @@ function TransactionsList({ transactions, handleDeleteTransaction, handleAddForm
             {/* render a list of <Transaction> components here */}
             {transactions.map((transaction, idx) => {
               return (
-                <Transaction
-                key={transaction.id}
-                            transaction={transaction}
-                            deleteTransaction={deleteTransaction}
-                />
+              <Transaction transaction={transaction} deleteTransaction={deleteTransaction}  key={transaction.id}/>
               );
             })}
           </tbody>
